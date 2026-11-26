@@ -160,6 +160,7 @@ html.js-motion [data-hero-hide]{opacity:0}
 .hero-name{font-family:var(--font-display);font-weight:400;font-size:var(--text-hero);line-height:.88;letter-spacing:-.035em}
 .hero-name .l2{display:block;text-align:right;font-weight:250;color:var(--accent);padding-right:.04em}
 .hero-name .l1{display:block}
+.hero-name.is-short .l2{text-align:left;padding:0 0 0 .55em}
 .hero-char{will-change:transform}
 .hero-bottom{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:2rem;align-items:end}
 .hero-tagline{font-size:var(--text-lg);max-width:34ch;line-height:1.5}

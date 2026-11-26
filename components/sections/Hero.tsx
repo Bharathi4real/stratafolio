@@ -16,6 +16,8 @@ export function Hero({
   socials: SocialLink[];
 }) {
   const fullName = `${block.nameLine1} ${block.nameLine2}`;
+  // Short names would sit at opposite edges with a gap between: stagger them instead.
+  const short = Math.max(block.nameLine1.length, block.nameLine2.length) <= 10;
   return (
     <HeroMotion reveal={block.nameReveal !== false}>
       {block.shader !== false ? (
@@ -33,7 +35,7 @@ export function Hero({
           ) : null}
         </div>
 
-        <h1 className="hero-name" aria-label={fullName}>
+        <h1 className={`hero-name${short ? " is-short" : ""}`} aria-label={fullName}>
           <span className="l1" data-hero-name aria-hidden="true">
             {block.nameLine1}
           </span>
