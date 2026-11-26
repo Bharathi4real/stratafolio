@@ -1,0 +1,12 @@
+ALTER TABLE "entries" ADD COLUMN "search_draft" "tsvector" GENERATED ALWAYS AS (
+  setweight(to_tsvector('english', coalesce(coalesce(draft, data)->>'title', '') || ' ' || coalesce(coalesce(draft, data)->>'company', '')), 'A') ||
+  setweight(to_tsvector('english', coalesce(coalesce(draft, data)->>'excerpt', '') || ' ' || coalesce(coalesce(draft, data)->>'summary', '') || ' ' || coalesce(coalesce(draft, data)->>'role', '') || ' ' || coalesce(coalesce(draft, data)->>'client', '') || ' ' || coalesce(coalesce(draft, data)->>'listLabel', '')), 'B') ||
+  setweight(to_tsvector('english', coalesce(coalesce(draft, data)->>'category', '') || ' ' || coalesce(coalesce(draft, data)->>'kind', '') || ' ' || coalesce(coalesce(draft, data)->>'type', '') || ' ' || coalesce(coalesce(draft, data)->>'location', '') || ' ' || coalesce((coalesce(draft, data)->'tags')::text, '') || ' ' || replace(slug, '-', ' ')), 'C') ||
+  setweight(to_tsvector('english', coalesce(jsonb_path_query_array(coalesce(draft, data), 'lax $.**.text')::text, '') || ' ' || coalesce(jsonb_path_query_array(coalesce(draft, data), 'lax $.**.attrs')::text, '')), 'D')) STORED;--> statement-breakpoint
+ALTER TABLE "entries" ADD COLUMN "search_live" "tsvector" GENERATED ALWAYS AS (
+  setweight(to_tsvector('english', coalesce(data->>'title', '') || ' ' || coalesce(data->>'company', '')), 'A') ||
+  setweight(to_tsvector('english', coalesce(data->>'excerpt', '') || ' ' || coalesce(data->>'summary', '') || ' ' || coalesce(data->>'role', '') || ' ' || coalesce(data->>'client', '') || ' ' || coalesce(data->>'listLabel', '')), 'B') ||
+  setweight(to_tsvector('english', coalesce(data->>'category', '') || ' ' || coalesce(data->>'kind', '') || ' ' || coalesce(data->>'type', '') || ' ' || coalesce(data->>'location', '') || ' ' || coalesce((data->'tags')::text, '') || ' ' || replace(slug, '-', ' ')), 'C') ||
+  setweight(to_tsvector('english', coalesce(jsonb_path_query_array(data, 'lax $.**.text')::text, '') || ' ' || coalesce(jsonb_path_query_array(data, 'lax $.**.attrs')::text, '')), 'D')) STORED;--> statement-breakpoint
+CREATE INDEX "entries_search_draft" ON "entries" USING gin ("search_draft");--> statement-breakpoint
+CREATE INDEX "entries_search_live" ON "entries" USING gin ("search_live");

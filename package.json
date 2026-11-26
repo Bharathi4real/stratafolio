@@ -1,0 +1,71 @@
+{
+  "name": "stratafolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome check",
+    "format": "biome check --write",
+    "typecheck": "tsc --noEmit",
+    "seed": "bun --env-file=.env seed/index.ts",
+    "vercel-build": "drizzle-kit migrate && next build",
+    "syntax:css": "bun scripts/syntax-css.ts",
+    "check": "biome check && tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "r2:check": "bun --env-file=.env scripts/r2-check.ts",
+    "seo:apply": "bun --env-file=.env scripts/seo-copy.ts"
+  },
+  "engines": {
+    "node": ">=20.18.1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1178.0",
+    "@aws-sdk/s3-request-presigner": "^3.1178.0",
+    "@gsap/react": "^2.1.2",
+    "@tanstack/highlight": "^1.2.12",
+    "@tanstack/react-form": "^1.33.5",
+    "@tanstack/react-hotkeys": "^0.27.4",
+    "@tanstack/react-pacer": "^0.24.1",
+    "@tanstack/react-query": "^5.108.4",
+    "@tanstack/react-store": "^0.11.4",
+    "@tanstack/react-table": "^9.3.1",
+    "@tiptap/extension-placeholder": "^3.35.0",
+    "@tiptap/pm": "^3.35.0",
+    "@tiptap/react": "^3.35.0",
+    "@tiptap/starter-kit": "^3.35.0",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.1.0",
+    "better-auth": "^1.7.28",
+    "drizzle-orm": "^0.45.4",
+    "gsap": "^3.15.1",
+    "lenis": "^1.3.28",
+    "marked": "^18.3.0",
+    "next": "16.4.6",
+    "postgres": "^4.1.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "resend": "^6.40.0",
+    "server-only": "^0.0.1",
+    "three": "^0.187.0",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@standard-schema/spec": "^1.1.0",
+    "@biomejs/biome": "2.6.9",
+    "@types/node": "^26.6.11",
+    "@types/react": "^19.3.3",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.187.0",
+    "drizzle-kit": "^0.31.11",
+    "typescript": "^7.0.2"
+  },
+  "overrides": {
+    "esbuild": ">=0.25.0"
+  }
+}
